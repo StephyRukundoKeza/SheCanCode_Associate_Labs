@@ -1,0 +1,50 @@
+Exercise 1.8: ExecutorService Orchestration
+→ Refactor order matching to use a FixedThreadPool of size Runtime.getRuntime().availableProcessors().
+→ Use Future<MatchResult> to retrieve results and handle ExecutionException gracefully.
+→ Print throughput: orders matched per second averaged over 5 runs.
+
+.................................................................................
+
+ > Before I was using a manual thread management, where I giving a task to a part of my program, everytime an order is place I have to give the task
+        to another part of my comp, that's not efficient, but using an executorService, I make sure I assign it to a certain part of computer whic will
+        overlook or task which are incoming however much.
+
+    This is the old thread way below:
+
+        for (int i = 0; i < threadCount; i++) {
+            new Thread(() -> book.addOrder(new Order("BUY-" + System.nanoTime(), 100.0, 1, true))).start();
+            new Thread(() -> book.addOrder(new Order("SELL-" + System.nanoTime(), 100.0, 1, false))).start();
+        }
+        ...
+
+ > This was my codes still with a few 20 orders, before I refactor it to handle 100 orders:
+
+ package org.igire.week1_shecancode_iro;
+
+
+ import org.igire.week1_shecancode_iro.RealTimeOrderMatchingEngine.ThreadSafeOrderBook.Order;
+ import org.igire.week1_shecancode_iro.RealTimeOrderMatchingEngine.ThreadSafeOrderBook.OrderBook;
+ import org.junit.jupiter.api.Test;
+
+ public class OrderBookTest {
+     @Test
+     public void testOrderBook() throws InterruptedException {
+         OrderBook book = new OrderBook();
+         int threadCount = 10;
+
+         // Spawn 10 Buyers and 10 Sellers
+         for (int i = 0; i < threadCount; i++) {
+             new Thread(() -> book.addOrder(new Order("BUY-" + System.nanoTime(), 100.0, 1, true))).start();
+             new Thread(() -> book.addOrder(new Order("SELL-" + System.nanoTime(), 100.0, 1, false))).start();
+         }
+
+         // Allow threads to complete their work
+         Thread.sleep(1000);
+
+         book.matchOrders();
+         System.out.println("Simulation complete.");
+     }
+ }
+
+
+        I implemented the professional way below in the OrderBookTest
