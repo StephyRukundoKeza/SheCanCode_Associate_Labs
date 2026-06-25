@@ -1,0 +1,24 @@
+After running my RevenueReportTest 3 times I got these:
+
+First:
+Sequential Time: 5.3751 ms
+Parallel Time: 83.1601 ms
+
+Process finished with exit code 0
+
+Second:
+Sequential Time: 17.8926 ms
+Parallel Time: 65.5506 ms
+
+Process finished with exit code 0
+
+Lastly:
+Sequential Time: 22.2849 ms
+Parallel Time: 73.5831 ms
+
+Process finished with exit code 0
+
+.......
+
+All In all I concluded that parallel streaming is slower than sequential streaming.
+

@@ -1,0 +1,17 @@
+package org.igire.w1ass2_shecancode_iro.ECommerceAnalyticsEngine.StreamPipelineforProductAnalytics;
+
+public class Order {
+    private String orderId;
+    private String ordername;
+    private String orderprice;
+    private String orderquantity;
+
+    public Order(String orderId, String name, String price, String quantity) {
+        this.ordername = name;
+        this.orderprice = price;
+        this.orderquantity = quantity;
+        this.orderId = orderId;
+    }
+
+
+}

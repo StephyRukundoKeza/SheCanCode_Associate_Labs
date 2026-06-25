@@ -1,0 +1,5 @@
+Exercise 2.8: JPA Entity Model
+→ Annotate Product with @Entity, @Id, @GeneratedValue, @Column, and @Version (for optimistic locking). Annotate Category with @OneToMany(mappedBy="category") pointing back to Product.
+→ Implement a ProductJpaRepository interface extending JpaRepository<Product, String> with a custom JPQL query: findByCategoryAndPriceGreaterThan(String category, double minPrice).
+→ Demonstrate optimistic locking: load the same Product in two separate EntityManager sessions, update stock in each, and flush both — assert that the second flush throws OptimisticLockException.
+
